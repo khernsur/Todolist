@@ -1,25 +1,50 @@
-import logo from './logo.svg';
-import './App.css';
+import { useState } from 'react';
 
-function App() {
+const TodoList = () => {
+  const [todos, setTodos] = useState([]);
+  const [newTodo, setNewTodo] = useState('');
+  const [showCompleted, setShowCompleted] = useState(false);
+
+  const handleAddTodo = () => {
+    if (!newTodo) return;
+    setTodos([...todos, { text: newTodo, completed: false }]);
+    setNewTodo('');
+  }
+
+  const handleToggleCompleted = (i) => {
+    const newTodos = [...todos];
+    newTodos[i].completed = !newTodos[i].completed;
+    setTodos(newTodos);
+  }
+
+  const filteredTodos = showCompleted ? todos : todos.filter((todo) => !todo.completed);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <h1>Todo List</h1>
+      <ul>
+        {filteredTodos.map((todo, i) => (
+          <li key={i}>
+            <input type="checkbox" checked={todo.completed} onChange={() => handleToggleCompleted(i)} />
+            {todo.text}
+          </li>
+        ))}
+      </ul>
+      <div>
+        <input
+          type="text"
+          value={newTodo}
+          onChange={(e) => setNewTodo(e.target.value)}
+        />
+        <button onClick={handleAddTodo}>Add Todo</button>
+      </div>
+      <div>
+        <label>
+          <input type="checkbox" checked={showCompleted} onChange={() => setShowCompleted(!showCompleted)} />
+          Show completed tasks
+        </label>
+      </div>
     </div>
   );
 }
-
-export default App;
+export default TodoList;
