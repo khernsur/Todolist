@@ -1,39 +1,30 @@
-###GET /todos
+###GET /todos -should fetch all objects 
 GET http://localhost:8081/todos
 Content-Type: application/json
 
-###GET /todos/:id
+###GET /todos/:id -gets a specific object 
 GET http://localhost:8081/todos/1
 Content-Type: application/json
 
-###POST /todos - { "task": "Make a wish" }
+###POST /todos -adds a new object 
 POST http://localhost:8081/todos
 Content-Type: application/json
 
 {
-  "id": 123,
-  "task": "Make a Wish",
-  "checked": false  
-}
-###POST /todos - { "stuff": "" }
-
-POST http://localhost:8081/todos
-Content-Type: application/json
-
-{
-  "stuff": ""
+  "_id" : 4,
+  "task": "Noobie",
+  "checked": true
 }
 
-
-###PATCH /todos/:id - { "checked": true }
-PATCH http://localhost:8081/todos/4
+###PATCH /todos/:id -updates an existing object 
+PATCH http://localhost:8081/todos/1
 Content-Type: application/json
 
 {
  "checked": true
 }
 
-###PATCH /todos/:id - { "checked": "" }
+###PATCH /todos/:id -update check
 PATCH http://localhost:8081/todos/1
 Content-Type: application/json
 
@@ -41,6 +32,10 @@ Content-Type: application/json
  "checked": ""
 }
 
-###DELETE /todos/:id
+###DELETE /todos/:id delete an object 
 DELETE  http://localhost:8081/todos/1
+Content-Type: application/json
+
+###DELETE /todos
+DELETE  http://localhost:8081/todos
 Content-Type: application/json
